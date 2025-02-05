@@ -10,7 +10,7 @@ def ProbablyPrime(n, k=20):  # k is the number of rounds
             return False  # composite
     return True  # primew
 
-def miller_rabin_iterative(n):
+def miller_rabin_recompute(n):
     s = n - 1
     r = 0
 
@@ -24,8 +24,7 @@ def miller_rabin_iterative(n):
         return True # n is prime
     
     for i in range(1, r): # r - 1 give 5 is composite
-        #x = pow(a, (2 ** i) * s, n)
-        x = (x * x) % n
+        x = pow(a, (2 ** i) * s, n)
         if x == 1:
             return False # n is composite
         if x == n - 1:
@@ -48,7 +47,7 @@ def miller_rabin(n):
     
     for i in range(1, r): # r - 1 give 5 is composite
         #x = pow(a, (2 ** i) * s, n)
-        x = (x * x) % n
+        x = pow(x, 2, n)
         if x == 1:
             return False # n is composite
         if x == n - 1:
@@ -97,8 +96,8 @@ def comp_test():
     n = 15485863
 
     #Number is how many times we want to run the test
-    iterative_time = timeit.timeit(lambda: miller_rabin_iterative(n), number=100000)
-    recompute_time = timeit.timeit(lambda: miller_rabin(n), number=100000)
+    recompute_time = timeit.timeit(lambda: miller_rabin_recompute(n), number=100000)
+    iterative_time = timeit.timeit(lambda: miller_rabin(n), number=100000)
 
    
     print("Iterative squaring average time:", iterative_time / 100000, "seconds per run")
@@ -124,7 +123,7 @@ def generate(bits):
     primes = []
     while count < 100:
         
-        n = (random.getrandbits(bits) | (1 << bits)) | 1
+        n = random.randrange(2**(bits-1), 2**bits)
         if ProbablyPrime(n):
             count += 1
             primes.append(n)
