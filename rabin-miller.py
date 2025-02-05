@@ -2,7 +2,7 @@ import random
 
 
 def ProbablyPrime(n, k=20):  # k is the number of rounds
-    if n < 2:
+    if n < 3:
         return False
     for _ in range(k):
         if not miller_rabin(n):
@@ -23,8 +23,8 @@ def miller_rabin(n):
         return True # n is prime
     
     for i in range(1, r): # r - 1 give 5 is composite
-        x = pow(a, (2 ** i) * s, n)
-        # x = (x ** 2) % n
+        #x = pow(a, (2 ** i) * s, n)
+        x = (x * x) % n
         if x == 1:
             return False # n is composite
         if x == n - 1:
