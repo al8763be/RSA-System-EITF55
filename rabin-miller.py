@@ -110,27 +110,28 @@ def generate_with_time():
     print("Generate primes seleceted, pick bits: 512, 1024, 2048, 4096")
     
     bits = int(input())
-    
-
-    start = timeit.default_timer()
-    generate(bits)
-    end = timeit.default_timer()
-    print("Time taken to generate 100 primes:", end - start, "seconds")
-    print("\n")
-
-def generate(bits):
     count = 0
     primes = []
+
+    start = timeit.default_timer()
     while count < 100:
         
         n = random.randrange(2**(bits-1), 2**bits)
         if ProbablyPrime(n):
             count += 1
+            print(count)
             primes.append(n)
-    return primes
+    end = timeit.default_timer()
 
-    
-   
+    f = open(str(bits) + ".txt", "a")
+    for prime in primes:
+        f.write(str(prime) + "\n")
+    f.close()
+
+
+    print("Time taken to generate 100 primes:", end - start, "seconds")
+    print("\n")
+
 
 def main():
     end = False
