@@ -123,13 +123,16 @@ def generate_with_time():
             primes.append(n)
     end = timeit.default_timer()
 
-    f = open(str(bits) + ".txt", "a")
+    f = open(str(bits) + ".txt", "w")
     for prime in primes:
         f.write(str(prime) + "\n")
+
+    time = "Time taken to generate 100 primes: {} seconds".format(end - start)
+    f.write(time + "\n")
     f.close()
 
 
-    print("Time taken to generate 100 primes:", end - start, "seconds")
+    print(time)
     print("\n")
 
 
