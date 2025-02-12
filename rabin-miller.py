@@ -3,7 +3,7 @@ import timeit
 
 
 def ProbablyPrime(n, k=20):  # k is the number of rounds
-    if n < 3:
+    if n % 2 == 0 or n < 3:
         return False
     for _ in range(k):
         if not miller_rabin(n):
