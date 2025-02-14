@@ -55,12 +55,20 @@ def test():
         m = random.randrange(2**511, 2**512)
         
         result = inverse(a, m)
-        
-        print(f'a: {a}\nm: {m}\nresult: {result}\n')
+        if result == -1:
+            print(f'a: {a}\nm: {m}\nNo inverse exists\n')
+        else:
+            inverse_mod, gcd = result
+            print(f'a: {a}\nm: {m}\ninverse: {inverse_mod}\ngcd: {gcd}\n')
 
     #Test case for C.2
     print("Testcase for C.2")
     prime1 = 6938168183909476011711423782569145937582334327321712545715885438989823478711798510227258253737276814067807836904995661948940619120070366127008027527066103
     prime2 = 6799567461568200705908991986699895231497109379651706284696168519150076160951283987365163549611749850876280551858508087641524105908392504380214123161150113
-    print(f"\nresult for prime 1: {inverse(pow(2,16) + 1, prime1)}\n")
-    print(f"\nresult for prime 2: {inverse(pow(2,16) + 1, prime2)}\n")
+    phi_n =  (prime1-1) * (prime2-1)
+    print(f"e: {2**16 + 1}")
+    print(f"m: {phi_n}")
+    print(f"\nresult for primes used: {inverse(pow(2,16) + 1, phi_n)}\n")
+    
+
+test()
